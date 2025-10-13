@@ -1,3 +1,14 @@
+/* Better font rendering */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+strong, b {
+    font-weight: 600;
+}
+
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero.jpg') center/cover;
     color: white;
@@ -57,6 +68,10 @@ article {
 h2 {
     margin-top: 3rem;
     margin-bottom: 1.5rem;
+}
+
+h2::first-letter {
+    margin-right: 0.3em;
 }
 
 h3 {
