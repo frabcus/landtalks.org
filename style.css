@@ -78,6 +78,16 @@ h3 {
     margin-bottom: 1rem;
 }
 
+/* Better list spacing */
+#speaker-info ol > li {
+    margin-bottom: 1.5rem;
+}
+
+#speaker-info ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 /* Anchor links for headings */
 .header-anchor {
     opacity: 0;
