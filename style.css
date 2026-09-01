@@ -473,13 +473,6 @@ p:last-child { margin-bottom: 0; }
   gap: 1rem 1.5rem;
   margin-top: 2rem;
 }
-.talks__count {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
 
 /* ---------- hosts ---------- */
 .hosts__grid {
