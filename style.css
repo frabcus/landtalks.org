@@ -156,19 +156,37 @@ p:last-child { margin-bottom: 0; }
   border-color: var(--ink);
 }
 
-/* ---------- masthead ---------- */
+/* ---------- masthead ----------
+   Fixed, so the ticket link stays reachable through the long archive.
+   Solid by default: that is the state it must be legible in, and it is
+   what shows if the script below never runs. The script clears it back
+   to transparent while it overlaps the hero artwork. */
 .masthead {
-  position: absolute;
+  position: fixed;
   inset: 0 0 auto;
-  z-index: 3;
-  width: min(72rem, 100%);
-  margin-inline: auto;
+  z-index: 20;
+  background: rgba(20, 41, 12, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(245, 185, 68, 0.22);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.masthead--clear {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+.masthead__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.25rem var(--gutter);
+  padding-block: 1rem;
 }
+
+/* anchors must clear the fixed bar */
+#main, .bay, .join { scroll-margin-top: 4.5rem; }
 .masthead__mark {
   font-family: var(--mono);
   font-size: 0.75rem;

@@ -21,6 +21,13 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
+  <header class="masthead">
+    <div class="wrap masthead__bar">
+      <a class="masthead__mark" href="#main">Land&nbsp;Talks</a>
+      <a class="btn" href="https://lu.ma/landtalks">Get tickets</a>
+    </div>
+  </header>
+
   <div class="hero">
     <div class="wrap hero__grid">
       <div>
@@ -35,6 +42,20 @@
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      var bar = document.querySelector('.masthead');
+      var hero = document.querySelector('.hero');
+      if (!bar || !hero || !('IntersectionObserver' in window)) return;
+
+      // Transparent while the bar sits over the hero artwork, solid once
+      // it would overlap the pale sections below.
+      new IntersectionObserver(function (entries) {
+        bar.classList.toggle('masthead--clear', entries[0].isIntersecting);
+      }, { rootMargin: '-' + bar.offsetHeight + 'px 0px 0px 0px' }).observe(hero);
+    })();
+  </script>
 
   <main id="main">
 
@@ -392,8 +413,6 @@
       <ul>
         <li><a href="https://lu.ma/landtalks">Tickets &amp; dates</a></li>
         <li><a href="https://landtalks.notion.site/">Information for speakers</a></li>
-        <li><a href="https://www.linkedin.com/in/francisirving">Francis Irving</a></li>
-        <li><a href="https://www.linkedin.com/in/henrymorris/">Henry Morris</a></li>
       </ul>
     </div>
   </footer>
