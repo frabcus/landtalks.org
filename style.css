@@ -246,15 +246,12 @@ p:last-child { margin-bottom: 0; }
   align-items: end;
 }
 
-.hero__title {
-  font-size: clamp(3.25rem, 1.5rem + 8.4vw, 8.5rem);
-  line-height: 0.82;
-  color: #fff8ea;
-  text-shadow: 0 0.06em 0.5em rgba(10, 14, 6, 0.55);
-}
-.hero__title span {
-  display: block;
-  color: var(--glow);
+/* The wordmark is the supplied brand lockup, recoloured cream + glow and
+   knocked out of its white plate so it can sit on the artwork. */
+.hero__title { margin: 0; }
+.hero__title img {
+  width: clamp(11rem, 24vw, 19rem);
+  filter: drop-shadow(0 0.5rem 1.5rem rgba(10, 14, 6, 0.55));
 }
 .hero__tagline {
   font-size: clamp(1.1875rem, 1rem + 0.9vw, 1.625rem);
