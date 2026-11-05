@@ -1,0 +1,29 @@
+---
+layout: default
+title: Talks - Land Talks
+description: Slides from Land Talks evenings, free to read and download.
+---
+<main id="main" class="page">
+  <div class="wrap talks-index">
+    <div>
+      <p class="eyebrow">From the archive</p>
+      <h1 class="talk-h1">Talks</h1>
+      <p class="hook">Slides from Land Talks evenings, free to read and download.</p>
+      {% for evening in site.data.evenings %}
+      <section class="talks-index__group">
+        <h2><a href="{{ evening.url }}">Land Talks #{{ evening.number }}</a><span>{{ evening.when }}</span></h2>
+        <ul>
+          {% assign talks = site.talks | where: "evening", evening.number %}
+          {% for talk in talks %}<li><a href="{{ talk.url }}">{{ talk.title | escape }}</a><span>{{ talk.speaker | escape }}</span></li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endfor %}
+    </div>
+    <aside class="callout">
+      <h2>What we talk about</h2>
+      <p>Francis's blog post sorts 36 of our talks into seven themes, from culture to organisations.</p>
+      <a href="https://www.flourish.org/2026/09/land-talks/">36 talks about radical land policy</a>
+    </aside>
+  </div>
+</main>

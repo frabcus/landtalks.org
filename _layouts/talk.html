@@ -1,0 +1,40 @@
+---
+layout: default
+---
+{% assign evening = site.data.evenings | where: "number", page.evening | first %}
+{% assign pdf = "/slides/" | append: page.evening | append: "/" | append: page.slug | append: ".pdf" %}
+{% assign found = site.static_files | where: "path", pdf | first %}
+<main id="main" class="page">
+  <div class="wrap talk-head">
+    <div>
+      <p class="eyebrow"><a href="{{ evening.url }}">Land Talks #{{ page.evening }} &middot; {{ evening.when }}</a></p>
+      <h1 class="talk-h1">{{ page.title | escape }}</h1>
+      <p class="byline">{{ page.speaker | escape }}</p>
+    </div>
+    <div>
+      <p class="hook">{{ page.hook | escape }}</p>
+      <div class="copy">{{ content }}</div>
+      {% if found %}<div class="actions"><a class="btn" href="{{ pdf }}">Download slides (PDF)</a></div>{% endif %}
+      {% if page.bio or page.photo or page.action_url %}
+      <aside class="speaker">
+        {% if page.photo %}<img class="speaker__photo" src="/images/speakers/{{ page.photo }}" width="88" height="88" alt="">{% endif %}
+        <div>
+          {% if page.bio %}<p>{{ page.bio | escape }}</p>{% endif %}
+          {% if page.action_url %}<a class="btn btn--quiet" href="{{ page.action_url }}">{{ page.action_text | default: "Find out more" | escape }}</a>{% endif %}
+        </div>
+      </aside>
+      {% endif %}
+    </div>
+  </div>
+  {% if found %}
+  <div class="flip">
+    <div class="wrap">
+      <div class="flip__stage" id="flip" data-pdf="{{ pdf }}">
+        <div class="flip__frame"><canvas aria-label="Slides"></canvas><a class="flip__status" href="{{ pdf }}">Download the slides (PDF)</a></div>
+        <div class="flip__controls"><button type="button" data-go="-1" disabled>&larr; Previous</button><span aria-live="polite"></span><button type="button" data-go="1" disabled>Next &rarr;</button></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/assets/flip.js"></script>
+  {% endif %}
+</main>
