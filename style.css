@@ -633,7 +633,7 @@ p:last-child { margin-bottom: 0; }
 .talk-head .eyebrow a:hover { text-decoration: underline; }
 /* Emoji are images of Noto's artwork (see build.py), not text, so every device
    draws the same picture and these numbers hold everywhere. */
-.talk-emoji { display: inline; width: auto; height: 1em; vertical-align: -0.14em; margin-right: 0.12em; }
+.talk-emoji { display: inline; width: auto; }
 .talk-h1 .talk-emoji { height: 0.92em; vertical-align: -0.03em; margin-right: -0.06em; }
 .talk-h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4rem); text-wrap: balance; }
 .byline {
@@ -753,9 +753,18 @@ p:last-child { margin-bottom: 0; }
   font-size: 1rem;
   line-height: 1.3;
 }
-.talks-index__group li a { color: var(--ink); text-decoration: none; font-weight: 600; }
+.talks-index__group li a {
+  display: grid;
+  grid-template-columns: 1.3em minmax(0, 1fr);
+  column-gap: 0.4em;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+/* A fixed column here, so the titles line up. Only headlines fit emoji to their width. */
+.talks-index__group li .talk-emoji { width: 100%; height: 1.15em; margin: 0.04em 0 0; object-fit: contain; }
 .talks-index__group li a:hover { color: var(--bronze-deep); text-decoration: underline; }
-.talks-index__group li span { font-family: var(--mono); font-size: 0.75rem; color: var(--bronze-deep); }
+.talks-index__group li span { font-family: var(--mono); font-size: 0.75rem; color: var(--bronze-deep); padding-left: 1.7rem; }
 
 .callout {
   background: var(--paper-sunk);

@@ -69,14 +69,31 @@ cards and the Talks page. The filename sets the web address, so don't rename a
 talk once it's live. Talks within an evening are listed alphabetically by
 filename.
 
-The first time an emoji is used, the build downloads its picture from Noto
-(<https://github.com/googlefonts/noto-emoji>) into `assets/emoji/`, so commit that
-file too. Most are Apache-licensed, and the flags are public domain. A new picture
-has blank space at its sides until cropped by `trim_emoji.js`, which needs
-Playwright; instructions are at the top of that file.
-
 Optional fields: `bio`, `photo` (a file in `images/speakers/`), `action_text`
 and `action_url`.
+
+## Emoji
+
+Emoji are pictures of Noto's artwork, not text, because browsers draw text emoji
+at different sizes and in different styles. Noto is also the style on the house
+slides. You still just type the emoji in a talk's file.
+
+The first time an emoji is used, the build downloads its picture from
+<https://github.com/googlefonts/noto-emoji> into `assets/emoji/`, so commit that
+file too. Most are Apache-licensed, and the flags are public domain.
+
+The same picture is sized differently in each place, in `style.css`:
+
+| Where | How | Why |
+|---|---|---|
+| Talk page headline (`.talk-h1 .talk-emoji`) | Its own width, sized to the capitals | Sits next to the first letter with an even gap, like a letter |
+| Talks page (`.talks-index__group li .talk-emoji`) | Centred in a fixed-width column | Keeps the titles and speakers in a straight line |
+| Home page cards (`.talk__emoji img`) | Its own width, on its own line | Nothing to line up with |
+
+The even gap in headlines depends on each picture being cropped to its artwork's
+width, because Noto draws them all on a square canvas. A newly downloaded picture
+keeps its blank sides until `trim_emoji.js` has been run on it. That needs
+Playwright; instructions are at the top of the file. Re-running it is safe.
 
 ## Changing templates
 
