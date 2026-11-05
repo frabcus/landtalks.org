@@ -45,7 +45,6 @@ async function draw(number) {
   canvas.height = buffer.height;
   canvas.getContext('2d').drawImage(buffer, 0, 0);
   canvas.setAttribute('aria-label', `Slide ${number} of ${doc.numPages}`);
-  frame.style.aspectRatio = `${size.width} / ${size.height}`;
   status.hidden = true;
   if (number < doc.numPages) doc.getPage(number + 1);
 }

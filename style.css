@@ -631,6 +631,9 @@ p:last-child { margin-bottom: 0; }
 }
 .talk-head .eyebrow a { color: inherit; text-decoration: none; }
 .talk-head .eyebrow a:hover { text-decoration: underline; }
+/* Sized to the capitals, and lifted to sit on the same baseline. */
+.talk-emoji { font-size: 0.8em; line-height: 0; vertical-align: 0.08em; }
+.talk-h1 .talk-emoji { font-size: 1.05em; margin-right: -0.16em; }
 .talk-h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4rem); text-wrap: balance; }
 .byline {
   font-family: var(--mono);
@@ -661,9 +664,11 @@ p:last-child { margin-bottom: 0; }
 .speaker p { font-size: 0.9375rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
 .speaker .btn { padding: 0.6em 1.1em; }
 
-/* The flip-through, sized so its buttons fit on the screen with the slide. */
+/* The flip-through lines up with the text above it. On a short screen it narrows,
+   so its buttons still fit with the slide. Every deck gets the same 16:9 frame,
+   and other shapes sit centred inside it. */
 .flip { background: var(--ink); padding-block: 2rem; margin-bottom: var(--bay); }
-.flip__stage { max-width: min(60rem, calc((100svh - 9rem) * 16 / 9)); margin-inline: auto; }
+.flip__stage { max-width: calc((100svh - 9rem) * 16 / 9); }
 .flip__frame {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -671,7 +676,7 @@ p:last-child { margin-bottom: 0; }
   border: 1px solid rgba(245, 185, 68, 0.3);
   touch-action: pan-y;
 }
-.flip__frame canvas { display: block; width: 100%; height: 100%; }
+.flip__frame canvas { display: block; width: 100%; height: 100%; object-fit: contain; }
 .flip__status {
   position: absolute;
   inset: 0;
