@@ -14,7 +14,7 @@ description: Every talk from every evening, with slides.
         <h2><a href="{{ evening.url }}">Land Talks #{{ evening.number }}</a><span>{{ evening.when }}</span></h2>
         <ul>
           {% assign talks = site.talks | where: "evening", evening.number %}
-          {% for talk in talks %}<li><a href="{{ talk.url }}"><span class="talk-emoji" aria-hidden="true">{{ talk.emoji }}</span> {{ talk.title | escape }}</a><span>{{ talk.speaker | escape }}</span></li>
+          {% for talk in talks %}<li><a href="{{ talk.url }}"><img class="talk-emoji" src="{{ talk.emoji_src }}" width="128" height="128" alt=""> {{ talk.title | escape }}</a><span>{{ talk.speaker | escape }}</span></li>
           {% endfor %}
         </ul>
       </section>

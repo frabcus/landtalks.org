@@ -25,6 +25,7 @@ ignores:
 | `talks/index.html` | The Talks page |
 | `_layouts/`, `_includes/` | Templates: shared page parts, talk page, home page card |
 | `style.css`, `images/` | Styles and pictures |
+| `assets/emoji/` | A picture of each emoji in use |
 | `assets/flip.js` | The slide viewer |
 | `assets/pdfjs/` | PDF.js, which the viewer uses to draw PDFs in the browser |
 
@@ -67,6 +68,12 @@ That one file feeds the talk's page at `/talks/8/beth/`, the home page's random
 cards and the Talks page. The filename sets the web address, so don't rename a
 talk once it's live. Talks within an evening are listed alphabetically by
 filename.
+
+The first time an emoji is used, the build downloads its picture from Noto
+(<https://github.com/googlefonts/noto-emoji>) into `assets/emoji/`, so commit that
+file too. Most are Apache-licensed, and the flags are public domain. A new picture
+has blank space at its sides until cropped by `trim_emoji.js`, which needs
+Playwright; instructions are at the top of that file.
 
 Optional fields: `bio`, `photo` (a file in `images/speakers/`), `action_text`
 and `action_url`.

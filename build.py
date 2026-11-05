@@ -17,11 +17,13 @@ import http.server
 import re
 import shutil
 import sys
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "_site"
-NOT_PUBLISHED = {"README.md", "build.py", "tmp", "__pycache__"}
+NOT_PUBLISHED = {"README.md", "build.py", "trim_emoji.js", "tmp", "__pycache__"}
 TALK_FIELDS = ("title", "speaker", "emoji", "hook")
 
 
@@ -77,6 +79,31 @@ def markdown(text):
     return "".join(paragraphs)
 
 
+def emoji_image(emoji, talk):
+    """The web address of an emoji's picture, fetching Noto's artwork the first
+    time it is used. Pictures rather than text, because browsers can't be relied
+    on to show the same emoji at the same size."""
+    points = [point for point in map(ord, emoji) if point != 0xFE0F]
+    if len(points) == 2 and all(0x1F1E6 <= point <= 0x1F1FF for point in points):
+        code = "".join(chr(point - 0x1F1E6 + 65) for point in points)
+        name, source = f"flag_{code}.svg", f"third_party/region-flags/svg/{code}.svg"
+    else:
+        name = "emoji_u" + "_".join(f"{point:x}" for point in points) + ".svg"
+        source = f"2D/svg/{name}"
+    path = ROOT / "assets/emoji" / name
+    if not path.exists():
+        url = f"https://raw.githubusercontent.com/googlefonts/noto-emoji/main/{source}"
+        try:
+            with urllib.request.urlopen(url, timeout=30) as response:
+                artwork = response.read()
+        except (urllib.error.URLError, OSError) as error:
+            fail(f"{talk}: couldn't fetch the picture for {emoji} from {url}: {error}")
+        path.parent.mkdir(exist_ok=True)
+        path.write_bytes(artwork)
+        print(f"Fetched {name} for {emoji}. Commit it along with the talk.")
+    return f"/assets/emoji/{name}"
+
+
 def talks(known):
     found = []
     for path in sorted((ROOT / "_talks").glob("*/*.md")):
@@ -92,6 +119,7 @@ def talks(known):
             fail(f"{name}: it says evening {fields.get('evening')} but is in folder {folder}")
         if fields["evening"] not in known:
             fail(f"{name}: add evening {folder} to _data/evenings.yml")
+        fields["emoji_src"] = emoji_image(str(fields["emoji"]), name)
         found.append({**fields, "slug": path.stem, "url": f"/talks/{folder}/{path.stem}/", "content": markdown(body)})
     return found
 
@@ -228,6 +256,9 @@ def build():
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir()
+    # First, because a new talk may fetch an emoji picture to publish below.
+    data = {"evenings": evenings()}
+    all_talks = talks({evening["number"] for evening in data["evenings"]})
     pages, static = [], []
     for path in sorted(ROOT.rglob("*")):
         if published(path):
@@ -238,8 +269,6 @@ def build():
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, target)
 
-    data = {"evenings": evenings()}
-    all_talks = talks({evening["number"] for evening in data["evenings"]})
     site = {
         "url": "https://landtalks.org",
         "talks": all_talks,

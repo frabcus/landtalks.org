@@ -1,6 +1,6 @@
 {% assign evening = site.data.evenings | where: "number", include.talk.evening | first %}
           <article class="talk">
-            <div class="talk__emoji" aria-hidden="true">{{ include.talk.emoji }}</div>
+            <div class="talk__emoji"><img src="{{ include.talk.emoji_src }}" width="128" height="128" alt=""></div>
             <h3 class="talk__title"><a href="{{ include.talk.url }}">{{ include.talk.title | escape }}</a></h3>
             <p class="talk__by">{{ include.talk.speaker | escape }}</p>
             <p class="talk__blurb">{{ include.talk.hook | escape }} {{ include.talk.content | strip_html | strip }}</p>
