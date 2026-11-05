@@ -756,6 +756,7 @@ p:last-child { margin-bottom: 0; }
 }
 .callout h2 { font-size: 1.25rem; line-height: 1.05; margin-bottom: 0.6rem; }
 .callout p { margin-bottom: 0.7rem; }
+.callout ul { margin: 0 0 0.9rem; padding-left: 1.2rem; }
 .callout a { font-weight: 600; }
 
 @media (max-width: 60rem) {

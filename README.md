@@ -21,7 +21,7 @@ ignores:
 | `_talks/<evening>/<name>.md` | One talk: its text and details |
 | `slides/<evening>/<name>.pdf` | That talk's slides |
 | `_data/evenings.yml` | Each evening's number, month and Luma link |
-| `index.html` | The home page, with hand-written cards for evenings 1 to 6 |
+| `index.html` | The home page |
 | `talks/index.html` | The Talks page |
 | `_layouts/`, `_includes/` | Templates: shared page parts, talk page, home page card |
 | `style.css`, `images/` | Styles and pictures |
@@ -70,9 +70,6 @@ filename.
 
 Optional fields: `bio`, `photo` (a file in `images/speakers/`), `action_text`
 and `action_url`.
-
-Evenings 1 to 6 are still hand-written cards in `index.html`. To move one
-across, delete its card and add its files as above.
 
 ## Changing templates
 
