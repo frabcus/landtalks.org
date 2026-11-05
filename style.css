@@ -614,7 +614,11 @@ p:last-child { margin-bottom: 0; }
 .masthead__link:hover, .masthead__link[aria-current] { color: var(--glow); }
 
 .talk__title a { color: inherit; text-decoration: none; }
-.talk__title a:hover { color: var(--bronze-deep); text-decoration: underline; }
+.talk:hover .talk__title a { color: var(--bronze-deep); text-decoration: underline; }
+/* The whole card is the talk's link, apart from the evening link on top of it. */
+.talk { position: relative; }
+.talk__title a::after { content: ""; position: absolute; inset: 0; }
+.talk__meta a { position: relative; z-index: 1; }
 
 /* ---------- a talk's page ---------- */
 .page { padding-top: 5.5rem; }
